@@ -3,4 +3,4 @@ dist/
 .astro/
 .cache/
 .env
-.claude
+.claude.vercel/

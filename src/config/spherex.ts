@@ -85,4 +85,7 @@ export const FLAG_CATEGORIES: { key: string; label: string; bits: number[]; bad:
   { key: "OFFIMAGE", label: "Off detector", bits: [], bad: true, hint: "Outside the detector footprint" },
 ];
 
-export const CACHE_DIR = ".cache/spherex";
+/** Vercel functions can only write to /tmp (per instance, short-lived); the CDN cache does the heavy lifting there. */
+// (this module is also bundled for the browser, hence the typeof guard)
+const onVercel = typeof process !== "undefined" && Boolean(process.env?.VERCEL);
+export const CACHE_DIR = onVercel ? "/tmp/spherex-cache" : ".cache/spherex";

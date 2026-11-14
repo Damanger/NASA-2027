@@ -33,7 +33,7 @@ export const GET: APIRoute = async ({ url }) => {
     if (!raw) return new Response("no overlap", { status: 204 });
     const body = encodeAligned(reproject(raw, ra, dec, n, scale));
     return new Response(body, {
-      headers: { "content-type": "application/octet-stream", "cache-control": "public, max-age=3600" },
+      headers: { "content-type": "application/octet-stream", "cache-control": "public, max-age=3600, s-maxage=604800, stale-while-revalidate=86400" },
     });
   } catch (e: any) {
     return new Response(`cutout failed: ${e?.message ?? e}`, { status: 502 });
